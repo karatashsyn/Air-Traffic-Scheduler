@@ -26,6 +26,6 @@ public class Flight {
 	
 	
 	public Operation getCurrentOperation() {
-		return this.remainingOperations.get(this.remainingOperations.size());
+		return this.remainingOperations.get(this.remainingOperations.size()-1);
 	}
 }

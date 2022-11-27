@@ -8,6 +8,7 @@ public class FlightComparator implements Comparator<Flight>{
 			return -1;
 		}
 		else if (o1.code.compareTo(o2.code)==0) {
+			System.out.println(o1.code);
 			System.out.println("COMPAER ERROR: TWO FLIGHTS'CODE YOU ARE TRYING TO COMPARE ARE SAME.");
 		}
 		else {

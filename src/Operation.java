@@ -2,10 +2,11 @@
 public class Operation {
 	String operationType;
 	String controllerType;
-	int duration;
+	int remainingTime;
+	int operationNumber;
 	
 	
-	public Operation(String ot,String ct, int d) throws Exception {
+	public Operation(int operationNumber, String ot,String ct, int d) throws Exception {
 		
 		if ((ot.compareTo("WAITING")!=0) && (ot.compareTo("RUNNING")!=0)) {
 			throw new Exception("You should enter on of the WAITING or RUNNING string as operation type.");
@@ -17,7 +18,7 @@ public class Operation {
 		
 		this.operationType = ot;
 		this.controllerType=ct;
-		this.duration=d;
-		
+		this.remainingTime=d;
+		this.operationNumber=operationNumber;
 	}
 }
