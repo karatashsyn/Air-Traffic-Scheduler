@@ -22,7 +22,9 @@ public class ReadyQueue {
 //		
 //	}
 	
-	
+	public ArrayList<Flight> getElements() {
+		return this.queue;
+	}
 	public Flight popFromQueue() throws Exception {
 		if(this.queue.size()<1) {throw new Exception("POP FROM QUEUE ERROR: There is no element in the queue");}
 		
@@ -35,7 +37,7 @@ public class ReadyQueue {
 	}
 	
 	public Flight peek() throws Exception{
-		if(this.queue.size()<1) {throw new Exception("PEEK ERROR: There is no element in the queue");}
+		if(this.queue.size()<1) {return null;}
 		
 		else {
 			return this.queue.get(this.queue.size()-1);

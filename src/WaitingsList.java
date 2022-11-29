@@ -24,6 +24,7 @@ public class WaitingsList {
 	
 	
 	public ArrayList<Flight> extractReadyFlights(){
+		
 		ArrayList<Flight> readyFlights = new ArrayList<>();
 		ArrayList<Flight> remainersFromWaitingList = new ArrayList<>();
 		if(this.waitingsList.size()>0) {

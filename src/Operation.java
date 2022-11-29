@@ -3,6 +3,7 @@ public class Operation {
 	String operationType;
 	String controllerType;
 	int remainingTime;
+	int spentTime=0;
 	int operationNumber;
 	
 	

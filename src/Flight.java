@@ -7,6 +7,7 @@ public class Flight {
 	public ArrayList<Operation> remainingOperations;
 	public Airport departureAirport;
 	public Airport arrivalAirport;
+	public boolean isNew;
 	
 	public Flight(String c, int admissionTime) {
 		this.code = c;
@@ -22,6 +23,7 @@ public class Flight {
 		this.remainingOperations=operationsList;
 		this.departureAirport = departure;
 		this.arrivalAirport = arrival;
+		this.isNew = true;
 	}
 	
 	

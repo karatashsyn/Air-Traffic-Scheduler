@@ -1,13 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.System.Logger;
-import java.net.SecureCacheResponse;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
-import org.w3c.dom.ls.LSOutput;
 
 public class Main {
 	static  ArrayList<ACC> ALL_ACCs = new ArrayList<>();
@@ -17,9 +13,7 @@ public class Main {
 	}
 	
 	
-	public static String paddedVersion(int num) {
-		return String.format("%03d", num);
-	}
+
 	
 	public static int convertToInt(String val) {
 		return Integer.parseInt(val);
@@ -34,10 +28,14 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		//IO Instances
-		File file = new File("C:\\Users\\Hüseyin Karataþ\\Desktop\\case6_input.txt");
-		FileWriter wrtr = new FileWriter("C:\\Users\\Hüseyin Karataþ\\Desktop\\denemeoutput.txt");
-		Scanner sc = new Scanner(file);
-		FlightComparator fc = new FlightComparator();
+		int inputNumber=10;
+		String inputFilePath = "C:\\Users\\Hüseyin Karataþ\\Desktop\\inputs\\"+"case" + inputNumber + ".in";
+//		inputFilePath = args[0];
+		String outputFileName = "C:\\Users\\Hüseyin Karataþ\\Desktop\\MY_OUTPUT.txt";
+//		outputFileName = args[1];
+		File input_file = new File(inputFilePath);
+
+		Scanner sc = new Scanner(input_file);
 		
 		//TAKE THE NUMBER OF ACCS AND FLIGHTS
 		String[] firstLineContent = LineParser(sc.nextLine());
@@ -46,7 +44,6 @@ public class Main {
 		
 		//TAKE THE ACCS AND AIRPORTS CONNECTED TO THEM FROM THE INPUT
 		for (int i = 0; i < numberOfACCs; i++) {
-			System.out.println("number : " + numberOfACCs);
 			String[] currentLineContent = LineParser(sc.nextLine());
 			String newAccCode = currentLineContent[0];
 			ACC newAcc = new ACC(newAccCode);
@@ -57,14 +54,17 @@ public class Main {
 			}
 			ALL_ACCs.add( newAcc);
 		}
-		System.out.println(ALL_ACCs);
 		
+		
+//		System.out.println(ALL_ACCs);
 		//ADD FLIGHTS TO APPROPRIATE ACCs
+		
+		
 		for(int i=0; i<numberOfFlights; i++ ) {
 			String[] currentLineContent = LineParser(sc.nextLine());
 			int admissionTime = convertToInt(currentLineContent[0]);
 			String flightCode = currentLineContent[1];
-			ACC accOfFlight = new ACC(flightCode);
+			ACC accOfFlight = null;
 			for (ACC acc : ALL_ACCs) {
 				if(acc.code.compareTo(currentLineContent[2])==0) {
 					accOfFlight= acc;
@@ -75,50 +75,48 @@ public class Main {
 			ArrayList<Operation> operations = new ArrayList<>();
 			//Get operations of that flight which will be added
 			try {
-				operations.add(0,new Operation(1,"RUNNING", "ACC", convertToInt(currentLineContent[5])));
-				operations.add(0,new Operation(2,"WAITING", "ACC", convertToInt(currentLineContent[6])));
-				operations.add(0,new Operation(3,"RUNNING", "ACC", convertToInt(currentLineContent[7])));
-				operations.add(0,new Operation(4,"RUNNING", "ATC", convertToInt(currentLineContent[8])));
-				operations.add(0,new Operation(5,"WAITING", "ATC", convertToInt(currentLineContent[9])));
-				operations.add(0,new Operation(6,"RUNNING", "ATC", convertToInt(currentLineContent[10])));
-				operations.add(0,new Operation(7,"WAITING", "ATC", convertToInt(currentLineContent[11])));
-				operations.add(0,new Operation(8,"RUNNING", "ATC", convertToInt(currentLineContent[12])));
-				operations.add(0,new Operation(9,"WAITING", "ATC", convertToInt(currentLineContent[13])));
-				operations.add(0,new Operation(10,"RUNNING", "ATC", convertToInt(currentLineContent[14])));
-				operations.add(0,new Operation(11,"RUNNING", "ACC", convertToInt(currentLineContent[15])));
-				operations.add(0,new Operation(12,"WAITING", "ACC", convertToInt(currentLineContent[16])));
-				operations.add(0,new Operation(13,"RUNNING", "ACC", convertToInt(currentLineContent[17])));
-				operations.add(0,new Operation(14,"RUNNING", "ATC", convertToInt(currentLineContent[18])));
-				operations.add(0,new Operation(15,"WAITING", "ATC", convertToInt(currentLineContent[19])));
-				operations.add(0,new Operation(16,"RUNNING", "ATC", convertToInt(currentLineContent[20])));
-				operations.add(0,new Operation(17,"WAITING", "ATC", convertToInt(currentLineContent[21])));
-				operations.add(0,new Operation(18,"RUNNING", "ATC", convertToInt(currentLineContent[22])));
-				operations.add(0,new Operation(19,"WAITING", "ATC", convertToInt(currentLineContent[23])));
-				operations.add(0,new Operation(20,"RUNNING", "ATC", convertToInt(currentLineContent[24])));
-				operations.add(0,new Operation(21,"RUNNING", "ACC", convertToInt(currentLineContent[25])));
+				for (int j = 1; j <= 21; j++) {
+			    Operation newOperation = new Operation(j,"WAITING","ACC", convertToInt(currentLineContent[j+4]));
+			    operations.add(0,newOperation);
+				}
 				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 			//Finally, add that flight to allFlights array of the proper ACC (which we reached by the input line.)
 			accOfFlight.addFlightToAllFlights(new Flight(flightCode, admissionTime, operations, departureAirport, arrivalAirport));
-			
-			
 		}		
 					
-			
+			sc.close();
 
 			for (ACC acc : ALL_ACCs) {
 				try {
 					acc.increaseTime();
 				} catch (Exception e) {
+					System.out.println("error");
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		
 
-		
+			String resultString = "";
+			FileWriter wrtr = new FileWriter(outputFileName);
+			for (ACC acc : ALL_ACCs ) {
+				resultString+=acc.code + " ";
+				resultString+=acc.TIMELINE+"";
+				
+				for (Airport airport  : acc.Airports ) {
+					if(airport!=null) {
+						resultString+= " " + airport.getAtc().code;
+
+					}
+				}
+				resultString+= "\n";
+			}
+			System.out.println(resultString);
+			wrtr.write(resultString);
+			wrtr.close();
+			
 		
 	}
 		
