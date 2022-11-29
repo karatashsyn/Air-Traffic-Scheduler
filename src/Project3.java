@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Main {
+public class Project3 {
 	static  ArrayList<ACC> ALL_ACCs = new ArrayList<>();
 	
 	public static String[] LineParser(String lineContent) {
@@ -28,11 +28,11 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		//IO Instances
-		int inputNumber=10;
-		String inputFilePath = "C:\\Users\\Hüseyin Karataþ\\Desktop\\inputs\\"+"case" + inputNumber + ".in";
-//		inputFilePath = args[0];
-		String outputFileName = "C:\\Users\\Hüseyin Karataþ\\Desktop\\MY_OUTPUT.txt";
-//		outputFileName = args[1];
+		int inputNumber=15;
+//		String inputFilePath = "C:\\Users\\Hüseyin Karataþ\\Desktop\\inputs\\"+"case" + inputNumber + ".in";
+		String inputFilePath = args[0];
+//		String outputFileName = "C:\\Users\\Hüseyin Karataþ\\Desktop\\MY_OUTPUT" +inputNumber + ".txt";
+		String outputFileName = args[1];
 		File input_file = new File(inputFilePath);
 
 		Scanner sc = new Scanner(input_file);
@@ -56,7 +56,7 @@ public class Main {
 		}
 		
 		
-//		System.out.println(ALL_ACCs);
+
 		//ADD FLIGHTS TO APPROPRIATE ACCs
 		
 		
@@ -113,7 +113,6 @@ public class Main {
 				}
 				resultString+= "\n";
 			}
-			System.out.println(resultString);
 			wrtr.write(resultString);
 			wrtr.close();
 			

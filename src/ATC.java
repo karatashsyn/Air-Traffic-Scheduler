@@ -57,7 +57,24 @@ public class ATC {
 		if(candidatesForReadyQueue.size()>0) {
 			this.candidatesForReadyQueue.sort(fc);
 			for (Flight flight : candidatesForReadyQueue) {
-				this.atcReadyQueue.addToQueue(flight);
+				//SILINECEK DENEME//
+				if(flight.getCurrentOperation().remainingTime==0) {
+					if(flight.getCurrentOperation().operationNumber==10 || flight.getCurrentOperation().operationNumber==20) {
+						flight.remainingOperations.remove(flight.remainingOperations.size()-1);
+						this.parentAcc.candidatesForReadyQueue.add(flight);
+					}
+					else {
+						flight.remainingOperations.remove(flight.remainingOperations.size()-1);
+						this.atcWaitingsList.addToQueue(flight);
+					}
+				}
+				//SILINECEK DENEME
+				
+				//SILINECEK (ELSE YOKTU)
+				else {
+					this.atcReadyQueue.addToQueue(flight);
+				}
+				//SILINECEK (ELSE YOKTU)
 			}
 		}
 		

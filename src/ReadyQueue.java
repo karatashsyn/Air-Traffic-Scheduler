@@ -6,21 +6,7 @@ public class ReadyQueue {
 	public int getSize() {
 		return this.queue.size();
 	}
-//	public void sendBackInQueue() throws Exception {
-//		if(this.queue.size()<1) {throw new Exception("SEND BACK IN QUEUE ERROR: There is no element in the queue");}
-//		
-//		
-//		else if(this.queue.size()==1) {
-//			return;
-//		}
-//		else {
-//			int size = this.queue.size();
-//			Flight sendedElement = this.queue.get(size-1);
-//			this.queue.remove(size-1);
-//			this.queue.add(0, sendedElement);
-//		}
-//		
-//	}
+
 	
 	public ArrayList<Flight> getElements() {
 		return this.queue;

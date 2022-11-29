@@ -22,6 +22,8 @@ public class ACC {
 		 this.code=accCode;
 	}
 	
+	
+	
 	public Flight notCompletedInSlice() throws Exception{
 		Flight notCompleted = null;
 		if(this.AccReadyQueue.getSize()>0) {
@@ -125,7 +127,7 @@ public class ACC {
 
 	
 	public void increaseTime() throws Exception {	
-		
+				
 		
 		ArrayList<ATC> allATCs = new ArrayList<>();
 		
@@ -144,9 +146,7 @@ public class ACC {
 
 			for (ATC atc : allATCs) {
 				atc.runTime();
-			}
-			
-			
+			}			
 			for (Flight flight : newFlights) {
 				candidatesForReadyQueue.add(flight);
 				flight.isNew=false;
@@ -166,13 +166,10 @@ public class ACC {
 			if(candidatesForReadyQueue.size()>0) {
 				for (int i = 0; i < candidatesForReadyQueue.size(); i++) {
 					
-					
 					this.AccReadyQueue.addToQueue(candidatesForReadyQueue.get(i));
-										
 					candidatesForReadyQueue.get(i).getCurrentOperation().spentTime=0;
 				}
 			}
-			
 			
 			this.candidatesForReadyQueue.clear();
 		
@@ -210,34 +207,12 @@ public class ACC {
 					}
 					
 				}
-				else {
-//					currentFlight.getCurrentOperation().remainingTime--;
-				}
 				
 			}
 		
 
 	
-			/////////////////DEBUGGING//////////////////
 
-//			System.out.println("currentTime: " + TIMELINE);
-			test_writer.write("currentTime: " + TIMELINE + "\n");
-			
-//			System.out.println("FlightsInReadyQueue (" + AccReadyQueue.getSize() + ")" + "\n");
-			test_writer.write("FlightsInReadyQueue (" + AccReadyQueue.getSize() + ")" + "\n");
-			for (Flight f : AccReadyQueue.getElements()) {
-//				System.out.println(f.code + " CurrentOpNumber: " + f.getCurrentOperation().operationNumber + " OpRemainingTime: " + f.getCurrentOperation().remainingTime);
-				test_writer.write(f.code + " CurrentOpNumber: " + f.getCurrentOperation().operationNumber + " OpRemainingTime: " + f.getCurrentOperation().remainingTime + "\n");
-			}
-//			System.out.println("Flights in waitingList (" + AccWaitingsList.getSize() + ")");
-			test_writer.write("Flights in waitingList (" + AccWaitingsList.getSize() + ")" + "\n");
-			for (Flight f : this.AccWaitingsList.getElements()) {
-//				System.out.println(f.code + " CurrentOpNumber: " + f.getCurrentOperation().operationNumber + " OpRemainingTime: " + f.getCurrentOperation().remainingTime);
-				test_writer.write(f.code + " CurrentOpNumber: " + f.getCurrentOperation().operationNumber + " OpRemainingTime: " + f.getCurrentOperation().remainingTime + "\n");
-			
-			}
-			test_writer.write("\n");
-			/////////////////DEBUGGING//////////////////
 			TIMELINE++;
 			
 		
